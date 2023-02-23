@@ -13,7 +13,7 @@ def home():
 
 @app.route("/api/v1/annual/<station>/<year>")
 def yearly(station, year):
-    filename = "C:/Users/basak/PycharmProjects/PMC20Apps/Weather API/data/data_small/TG_STAID" + str(station).zfill(
+    filename = "data/data_small/TG_STAID" + str(station).zfill(
         6) + ".txt"
     df = pd.read_csv(filename, skiprows=20)
     df["    DATE"] = df["    DATE"].astype(str)
@@ -24,7 +24,7 @@ def yearly(station, year):
 @app.route("/api/v1/<station>/<date>")
 def api(station, date):
     df = pd.read_csv(
-        r"C:\Users\basak\PycharmProjects\PMC20Apps\Weather API\data\data_small\TG_STAID" + str(station).zfill(
+        r"data\data_small\TG_STAID" + str(station).zfill(
             6) + ".txt", skiprows=20, parse_dates=["    DATE"])
     temperature = df.loc[df['    DATE'] == date]['   TG'].squeeze() / 10
     return {"station": station,
@@ -34,7 +34,7 @@ def api(station, date):
 
 @app.route("/api/v1/<station>")
 def all_data(station):
-    filename = "C:/Users/basak/PycharmProjects/PMC20Apps/Weather API/data/data_small/TG_STAID" + str(station).zfill(
+    filename = "data/data_small/TG_STAID" + str(station).zfill(
         6) + ".txt"
     df = pd.read_csv(filename, skiprows=20, parse_dates=["    DATE"])
     result = str(df.to_dict(orient="records"))
